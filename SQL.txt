@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS Books (
+   book_id SERIAL PRIMARY KEY,
+   title VARCHAR(255) NOT NULL,
+   author VARCHAR(255),
+   genre VARCHAR(255),
+   publisher VARCHAR(255),
+   publication_year INT,
+   isbn VARCHAR(13) UNIQUE,
+   description TEXT,
+   status VARCHAR(20) DEFAULT 'available'
+);
+
+CREATE TABLE IF NOT EXISTS Users (
+   user_id SERIAL PRIMARY KEY,
+   first_name VARCHAR(50) NOT NULL,
+   last_name VARCHAR(50) NOT NULL,
+   email VARCHAR(255) UNIQUE NOT NULL,
+   password VARCHAR(255) NOT NULL,
+   registration_date DATE,
+   role VARCHAR(20) DEFAULT 'user'
+);
+
+CREATE TABLE IF NOT EXISTS Rentals (
+   rental_id SERIAL PRIMARY KEY,
+   user_id INT REFERENCES Users(user_id),
+   book_id INT REFERENCES Books(book_id),
+   rental_date DATE,
+   return_date DATE
+);
